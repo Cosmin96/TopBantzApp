@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -15,6 +17,23 @@ public class MainActivity extends AppCompatActivity {
     private WebView mWebview;
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_BACK:
+                    if (mWebview.canGoBack()) {
+                        mWebview.goBack();
+                    } else {
+                        finish();
+                    }
+                    return true;
+            }
+
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -22,8 +41,19 @@ public class MainActivity extends AppCompatActivity {
         mWebview  = new WebView(this);
 
         mWebview.getSettings().setJavaScriptEnabled(true); // enable javascript
+        mWebview.getSettings().setAppCacheEnabled(true);
+        mWebview.getSettings().setAllowContentAccess(true);
+        mWebview.getSettings().setAllowFileAccess(true);
+        mWebview.getSettings().setAllowFileAccessFromFileURLs(true);
 
         final Activity activity = this;
+        mWebview.setWebChromeClient(new WebChromeClient() {
+            public void onProgressChanged(WebView view, int progress) {
+                // Activities and WebViews measure progress with different scales.
+                // The progress meter will automatically disappear when we reach 100%
+                activity.setProgress(progress * 1000);
+            }
+        });
 
         mWebview.setWebViewClient(new WebViewClient() {
             @SuppressWarnings("deprecation")
@@ -41,5 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
         mWebview .loadUrl("https://www.topbantz.com");
         setContentView(mWebview );
+
+
     }
+
+
 }
