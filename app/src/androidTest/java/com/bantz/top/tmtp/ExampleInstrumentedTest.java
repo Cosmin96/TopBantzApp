@@ -1,4 +1,4 @@
-package com.bantz.top.topbantz;
+package com.bantz.top.tmtp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

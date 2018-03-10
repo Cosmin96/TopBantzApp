@@ -1,4 +1,4 @@
-package com.bantz.top.topbantz;
+package com.bantz.top.tmtp;
 
 import org.junit.Test;
 
