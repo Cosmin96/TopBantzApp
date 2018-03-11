@@ -3,12 +3,14 @@ package com.bantz.top.tmtp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import im.delight.android.webview.AdvancedWebView;
 
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
         mWebView.setListener(this, this);
         mWebView .loadUrl("https://www.topbantz.com");
+        mWebView.addPermittedHostname("topbantz.com");
+        mWebView.addPermittedHostname("youtube.com");
 
         mWebView.setWebChromeClient(new WebChromeClient() {
 
@@ -113,5 +117,8 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     public void onDownloadRequested(String url, String suggestedFilename, String mimeType, long contentLength, String contentDisposition, String userAgent) { }
 
     @Override
-    public void onExternalPageRequest(String url) { }
+    public void onExternalPageRequest(String url) {
+        mWebView.getContext().startActivity(
+                new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+    }
 }
