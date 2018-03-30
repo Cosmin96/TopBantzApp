@@ -1,10 +1,12 @@
 package com.bantz.top.tmtp;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -12,11 +14,14 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.onesignal.OneSignal;
+
 import im.delight.android.webview.AdvancedWebView;
 
-public class MainActivity extends AppCompatActivity implements AdvancedWebView.Listener{
+public class MainActivity extends Activity implements AdvancedWebView.Listener{
 
     private AdvancedWebView mWebView;
+    private ConstraintLayout layout;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -40,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        layout = (ConstraintLayout) findViewById(R.id.clayout);
+
         mWebView  = (AdvancedWebView) findViewById(R.id.webview);
         mWebView.getSettings().setSupportMultipleWindows(true);
 
@@ -47,7 +54,9 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
         mWebView .loadUrl("https://www.topbantz.com");
         mWebView.addPermittedHostname("topbantz.com");
         mWebView.addPermittedHostname("youtube.com");
-
+        mWebView.addPermittedHostname("fctables.com");
+        mWebView.addPermittedHostname("talksport.com");
+        mWebView.setMixedContentAllowed(true);
         mWebView.setWebChromeClient(new WebChromeClient() {
 
             @Override
@@ -61,6 +70,11 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
             }
 
         });
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
     }
 
     @SuppressLint("NewApi")
@@ -81,9 +95,11 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
 
     @Override
     protected void onDestroy() {
-        mWebView.onDestroy();
-        // ...
         super.onDestroy();
+        mWebView.onDestroy();
+        layout.removeView(mWebView);
+        mWebView.removeAllViews();
+        mWebView.destroy();
     }
 
     @Override
@@ -120,5 +136,13 @@ public class MainActivity extends AppCompatActivity implements AdvancedWebView.L
     public void onExternalPageRequest(String url) {
         mWebView.getContext().startActivity(
                 new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+    }
+
+    @Override
+    public void onDetachedFromWindow(){
+        super.onDetachedFromWindow();
+        layout.removeView(mWebView);
+        mWebView.removeAllViews();
+        mWebView.destroy();
     }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bantz.top.tmtp.MainActivity">
+    tools:context="com.bantz.top.tmtp.MainActivity"
+    android:id="@+id/clayout">
 
     <im.delight.android.webview.AdvancedWebView
         android:id="@+id/webview"
