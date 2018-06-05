@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/TopBantz.iml" filepath="$PROJECT_DIR$/TopBantz.iml" />
       <module fileurl="file://D:\TopBantzApp\TopBantz.iml" filepath="D:\TopBantzApp\TopBantz.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TopBantzApp.iml" filepath="$PROJECT_DIR$/TopBantzApp.iml" />
+      <module fileurl="file://C:\Users\marni\AndroidStudioProjects\TopBantz\TopBantzApp.iml" filepath="C:\Users\marni\AndroidStudioProjects\TopBantz\TopBantzApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
