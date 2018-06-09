@@ -67,7 +67,9 @@ public class MainActivity extends Activity implements AdvancedWebView.Listener{
         mWebView.addPermittedHostname("youtube.com");
         mWebView.addPermittedHostname("fctables.com");
         mWebView.addPermittedHostname("talksport.com");
+        mWebView.addPermittedHostname("https://checkout.stripe.com");
         mWebView.setMixedContentAllowed(true);
+        mWebView.getSettings().setUserAgentString("Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13E233 Safari/601.1");
         mWebView.setWebChromeClient(new WebChromeClient() {
 
             @Override
