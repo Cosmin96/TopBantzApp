@@ -15,10 +15,10 @@ android {
         manifestPlaceholders = [onesignal_app_id: "390b1f21-8896-4e5d-aed9-b6eaa98377cb",
                                 // Project number pulled from dashboard, local value is ignored.
                                 onesignal_google_project_number: "REMOTE"]
-        minSdkVersion 21
+        minSdkVersion 15
         targetSdkVersion 26
-        versionCode 5
-        versionName "1.4"
+        versionCode 7
+        versionName "1.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
